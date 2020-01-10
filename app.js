@@ -5,7 +5,7 @@ require('dotenv').config();
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const rateLimit = require('express-rate-limit');
-// const cors = require('cors');
+const cors = require('cors');
 const { celebrate, Joi } = require('celebrate');
 const celebrateErrorHandler = require('celebrate').errors;
 const usersRouter = require('./routes/getUsers');
@@ -29,14 +29,13 @@ const limiter = rateLimit({
   max: 100,
 });
 
-/*
+
 app.use(cors({
-  origin: ['https://mesto-praktikum.site', 'https://www.mesto-praktikum.site', 'http://mesto-praktikum.site', 'http://www.mesto-praktikum.site'],
+  origin: ['https://mesto-praktikum.site', 'https://www.mesto-praktikum.site', 'http://mesto-praktikum.site', 'http://www.mesto-praktikum.site', 'http://localhost:8080'],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   preflightContinue: false,
 }));
-*/
 
 app.use(bodyParser.json());
 app.use(cookieParser());
