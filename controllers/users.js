@@ -2,15 +2,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const nullCheck = require('../modules/nullCheck');
-const key = require('../modules/key');
+const key = require('../configs/key');
 const { ErrorBadRequest } = require('../modules/errors');
 
-/* const getUsers = (req, res, next) => {
-  User.find({})
-    .then(nullCheck)
-    .then((user) => res.send({ data: user }))
-    .catch((err) => next(err));
-}; */
 const getUser = (req, res, next) => {
   User.findById(req.user._id)
     .then(nullCheck)
@@ -52,20 +46,7 @@ const createUser = (req, res, next) => {
     return next(e);
   }
 };
-/* const editUser = (req, res, next) => {
-  const { name, about } = req.body;
-  return User.findByIdAndUpdate(req.user._id, { name, about }, { new: true, runValidators: true })
-    .then(nullCheck)
-    .then((user) => res.send(user))
-    .catch((err) => next(err));
-};
-const editAvatar = (req, res, next) => {
-  const { avatar } = req.body;
-  User.findByIdAndUpdate(req.user._id, { avatar }, { new: true, runValidators: true })
-    .then(nullCheck)
-    .then((user) => res.send(user))
-    .catch((err) => next(err));
-}; */
+
 const loginUser = (req, res, next) => {
   const { email, password } = req.body;
   return User.findUserByCredentials(email, password)

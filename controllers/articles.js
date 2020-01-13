@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 const Article = require('../models/article');
 const nullCheck = require('../modules/nullCheck');
 const { ErrorBadRequest, ErrorForbidden } = require('../modules/errors');
@@ -42,27 +41,6 @@ const deleteArticle = (req, res, next) => {
     })
     .catch((err) => next(err));
 };
-/* const likeArticle = (req, res, next) => {
-  Article.findByIdAndUpdate(
-    req.params.articleId,
-    { $addToSet: { likes: req.user._id } },
-    { new: true },
-  )
-    .then(nullCheck)
-    .then((card) => res.send(card))
-    .catch((err) => next(err));
-};
-const dislikeArticle = (req, res, next) => {
-  Article.findByIdAndUpdate(
-    req.params.articleId,
-    { $pull: { likes: req.user._id } },
-    { new: true },
-  )
-    .then(nullCheck)
-    .then((card) => res.send(card))
-    .catch((err) => next(err));
-};
-*/
 
 module.exports = {
   getArticles, addArticle, deleteArticle,
