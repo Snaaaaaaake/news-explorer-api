@@ -1,4 +1,5 @@
 const { celebrate, Joi } = require('celebrate');
+const { errorValidityMessage } = require('../configs/errorMessages');
 
 const signInValidation = celebrate({
   body: Joi.object().keys({
@@ -23,9 +24,9 @@ const articlesValidation = celebrate({
     date: Joi.date().iso().required(),
     source: Joi.string().required(),
     link: Joi.string().required().uri().regex(/^https?:\/\/[0-9a-z-.]+\.[a-z]+/i)
-      .error(new Error('Поле "Ссылка" должно содержать ссылку.')),
+      .error(new Error(errorValidityMessage.link)),
     image: Joi.string().required().uri().regex(/^https?:\/\/[0-9a-z-.]+\.[a-z]+\/.*\.(jpeg|jpg|png|gif)/i)
-      .error(new Error('Поле "Изображение" должно содержать ссылку на изображение.')),
+      .error(new Error(errorValidityMessage.image)),
   }),
 });
 

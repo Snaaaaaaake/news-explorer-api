@@ -1,13 +1,13 @@
 /* eslint-disable max-classes-per-file */
 class ErrorNotFound extends Error {
-  constructor(message = 'Документ не найден') {
+  constructor(message = 'Запрашиваемый ресурс не найден') {
     super(message);
     this.statusCode = 404;
   }
 }
 
 class ErrorUnauthorized extends Error {
-  constructor(message = 'Unauthorized') {
+  constructor(message = 'Необходима авторизация') {
     super(message);
     this.statusCode = 401;
   }
@@ -19,7 +19,7 @@ class ErrorBadRequest extends Error {
   }
 }
 class ErrorForbidden extends Error {
-  constructor(message = 'Forbidden') {
+  constructor(message = 'У вас недостаточно прав для данного действия') {
     super(message);
     this.statusCode = 403;
   }

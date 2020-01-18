@@ -37,7 +37,7 @@ const deleteArticle = (req, res, next) => {
           .then((trueArticle) => res.send(trueArticle))
           .catch((err) => next(err));
       }
-      throw new ErrorForbidden('У вас недостаточно прав для данного действия');
+      throw new ErrorForbidden();
     })
     .catch((err) => next(err));
 };

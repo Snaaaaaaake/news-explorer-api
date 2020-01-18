@@ -1,19 +1,20 @@
 const { ErrorNotFound } = require('../modules/errors');
 
+const notFound = (req, res, next) => {
+  next(new ErrorNotFound());
+};
+
 const errorHandler = (err, req, res, next) => {
+  let incomingError = err;
   // Обработка встроенной ошибки mongoose при запросе несуществующего документа,
   // по другому к ней не подобраться
-  if (/Cast to [a-z]+ failed/i.test(err.message)) {
-    return res.status(404).send({ message: 'Документ не найден' });
+  if (/Cast to [a-z]+ failed/i.test(incomingError.message)) {
+    incomingError = new ErrorNotFound();
   }
-  const { statusCode = 500, message } = err;
+  const { statusCode = 500, message } = incomingError;
   res.status(statusCode).send({ message });
   // Чтобы не ругался линтер
   return next();
-};
-
-const notFound = (req, res, next) => {
-  next(new ErrorNotFound('Запрашиваемый ресурс не найден'));
 };
 
 module.exports = { errorHandler, notFound };

@@ -4,6 +4,7 @@ const User = require('../models/user');
 const nullCheck = require('../modules/nullCheck');
 const key = require('../configs/key');
 const { ErrorBadRequest } = require('../modules/errors');
+const { error400Message } = require('../configs/errorMessages');
 
 const getUser = (req, res, next) => {
   User.findById(req.user._id)
@@ -34,14 +35,14 @@ const createUser = (req, res, next) => {
           if (/validation failed/.test(e.message)) {
             err = new ErrorBadRequest(e.message);
           } else if (/duplicate key/.test(e.message)) {
-            err = new ErrorBadRequest('Пользователь с таким email уже существует');
+            err = new ErrorBadRequest(error400Message.email);
           } else {
             err = e;
           }
           return next(err);
         });
     }
-    throw new ErrorBadRequest('Необходимо ввести пароль (от восьми символов и выше)');
+    throw new ErrorBadRequest(error400Message.password);
   } catch (e) {
     return next(e);
   }
