@@ -12,7 +12,7 @@ const errorHandler = (err, req, res, next) => {
     incomingError = new ErrorNotFound();
   }
   const { statusCode = 500, message } = incomingError;
-  res.status(statusCode).send({ message });
+  res.status(statusCode).send({ message, statusCode });
   // Чтобы не ругался линтер
   return next();
 };
