@@ -8,6 +8,7 @@ module.exports = cors({
     'http://www.mesto-praktikum.site',
     'https://snaaaaaaake.github.io',
     'http://snaaaaaaake.github.io',
+	'http://localhost:8080',
   ],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
