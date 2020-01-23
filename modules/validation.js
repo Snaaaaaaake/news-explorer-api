@@ -20,10 +20,10 @@ const articlesValidation = celebrate({
   body: Joi.object().keys({
     keyword: Joi.string().required(),
     title: Joi.string().required(),
-    text: Joi.string().required(),
+    description: Joi.string().required(),
     date: Joi.date().iso().required(),
     source: Joi.string().required(),
-    link: Joi.string().required().uri().regex(/^https?:\/\/[0-9a-z-.]+\.[a-z]+/i)
+    url: Joi.string().required().uri().regex(/^https?:\/\/[0-9a-z-.]+\.[a-z]+/i)
       .error(new Error(errorValidityMessage.link)),
     image: Joi.string().required().uri().regex(/^https?:\/\/[0-9a-z-.]+\.[a-z]+\/.*\.(jpeg|jpg|png|gif)/i)
       .error(new Error(errorValidityMessage.image)),
