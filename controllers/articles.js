@@ -11,10 +11,10 @@ const getArticles = (req, res, next) => {
 const addArticle = (req, res, next) => {
   const owner = req.user._id;
   const {
-    keyword, title, text, date, source, link, image,
+    keyword, title, description, date, source, url, image,
   } = req.body;
   Article.create({
-    keyword, title, text, date, source, link, image, owner,
+    keyword, title, description, date, source, url, image, owner,
   })
     .then(nullCheck)
     .then((article) => res.status(201).send(article))
