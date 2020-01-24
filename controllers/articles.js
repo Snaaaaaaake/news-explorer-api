@@ -1,6 +1,7 @@
 const Article = require('../models/article');
 const nullCheck = require('../modules/nullCheck');
 const { ErrorBadRequest, ErrorForbidden } = require('../modules/errors');
+const { error400Message } = require('../configs/errorMessages');
 
 const getArticles = (req, res, next) => {
   Article.find({ owner: req.user._id })
@@ -17,11 +18,13 @@ const addArticle = (req, res, next) => {
     keyword, title, description, date, source, url, image, owner,
   })
     .then(nullCheck)
-    .then((article) => res.status(201).send(article))
+    .then(() => res.status(201).send({ message: 'Создано', statusCode: 201 }))
     .catch((e) => {
       let err;
       if (/validation failed/.test(e.message)) {
         err = new ErrorBadRequest(e.message);
+      } else if (/duplicate key error/i.test(e.message)) {
+        err = new ErrorBadRequest(error400Message.exist);
       } else {
         err = e;
       }
@@ -34,7 +37,7 @@ const deleteArticle = (req, res, next) => {
     .then((article) => {
       if (req.user._id === article.owner.toString()) {
         return Article.findByIdAndRemove(req.params.articleId)
-          .then((trueArticle) => res.send(trueArticle))
+          .then(() => res.send({ message: 'Удалено', statusCode: 200 }))
           .catch((err) => next(err));
       }
       throw new ErrorForbidden();

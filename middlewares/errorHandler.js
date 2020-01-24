@@ -1,5 +1,5 @@
-const { ErrorNotFound, ErrorBadRequest } = require('../modules/errors');
-const { error400Message } = require('../configs/errorMessages');
+const { ErrorNotFound } = require('../modules/errors');
+
 
 const notFound = (req, res, next) => {
   next(new ErrorNotFound());
@@ -11,9 +11,6 @@ const errorHandler = (err, req, res, next) => {
   // по другому к ним не подобраться
   if (/Cast to [a-z]+ failed/i.test(incomingError.message)) {
     incomingError = new ErrorNotFound();
-  }
-  if (/duplicate key error/i.test(incomingError.message)) {
-    incomingError = new ErrorBadRequest(error400Message.exist);
   }
   const { statusCode = 500, message } = incomingError;
   res.status(statusCode).send({ message, statusCode });

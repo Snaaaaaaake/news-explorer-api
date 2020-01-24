@@ -23,9 +23,9 @@ const articlesValidation = celebrate({
     description: Joi.string().required(),
     date: Joi.date().iso().required(),
     source: Joi.string().required(),
-    url: Joi.string().required().uri().regex(/^https?:\/\/[0-9a-z-.]+\.[a-z]+/i)
+    url: Joi.string().required().uri().regex(/^https?:\/\/[0-9a-z-_.]+\.[a-z]+/i)
       .error(new Error(errorValidityMessage.link)),
-    image: Joi.string().required().uri().regex(/^https?:\/\/[0-9a-z-.]+\.[a-z]+\/.*\.(jpeg|jpg|png|gif)/i)
+    image: Joi.string().required().uri().regex(/^https?:\/\/[0-9a-z-_.]+\.[a-z]+\/.*\.(jpeg|jpg|png|gif)/i)
       .error(new Error(errorValidityMessage.image)),
   }),
 });
