@@ -18,7 +18,7 @@ const addArticle = (req, res, next) => {
     keyword, title, description, date, source, url, image, owner,
   })
     .then(nullCheck)
-    .then(() => res.status(201).send({ message: 'Создано', statusCode: 201 }))
+    .then((article) => res.status(201).send({ message: 'Создано', statusCode: 201, id: article._id }))
     .catch((e) => {
       let err;
       if (/validation failed/.test(e.message)) {
